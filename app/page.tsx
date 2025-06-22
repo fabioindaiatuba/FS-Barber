@@ -1,6 +1,6 @@
 import { SearchIcon } from "lucide-react"
 import Image from "next/image"
-import BarbershopItem from "./_components/babershop-itm"
+import BarbershopItem from "./_components/babershop-item"
 import BookingItem from "./_components/booking-item"
 import Header from "./_components/header"
 import { Button } from "./_components/ui/button"
@@ -48,12 +48,12 @@ export default async function Home() {
         </div>
 
         {/* Banner */}
-        <div className="relative mt-6 h-[150px] w-full">
+        <div className="relative mt-6 h-[200px] w-full">
           <Image
             alt="Agende os melhores com FSW-Barber"
             src="/banner-01.png"
             fill
-            className="bject-cover rounded-xl"
+            className="rounded-xl object-cover"
           />
         </div>
 
@@ -81,7 +81,7 @@ export default async function Home() {
         </div>
 
         <footer>
-          <Card className="p-0">
+          <Card className="mt-6 p-0">
             <CardContent className="px-5 py-6">
               <p className="text-sm text-gray-400">
                 © 2023 Copyright <span className="font-bold">FS Barber</span>
