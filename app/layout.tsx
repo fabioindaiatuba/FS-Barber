@@ -31,7 +31,7 @@ export default function RootLayout({
       >
         {children}
         <Footer />
-        <Toaster theme="system" />
+        <Toaster />
       </body>
     </html>
   )
