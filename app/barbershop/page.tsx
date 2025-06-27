@@ -5,17 +5,36 @@ import { db } from "../_lib/prisma"
 
 interface BarbershopsProps {
   searchParams: {
-    search?: string
+    title?: string
+    service?: string
   }
 }
 
 const BarbershopsPage = async ({ searchParams }: BarbershopsProps) => {
   const barbershops = await db.barbershop.findMany({
     where: {
-      name: {
-        contains: searchParams?.search,
-        mode: "insensitive",
-      },
+      OR: [
+        searchParams?.title
+          ? {
+              name: {
+                contains: searchParams?.title,
+                mode: "insensitive",
+              },
+            }
+          : {},
+        searchParams.service
+          ? {
+              services: {
+                some: {
+                  name: {
+                    contains: searchParams?.service,
+                    mode: "insensitive",
+                  },
+                },
+              },
+            }
+          : {},
+      ],
     },
   })
 
