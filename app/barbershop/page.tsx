@@ -3,6 +3,8 @@ import Header from "../_components/header"
 import Search from "../_components/search"
 import { db } from "../_lib/prisma"
 
+export const dynamic = "force-dynamic"
+
 interface BarbershopsProps {
   searchParams: {
     title?: string
@@ -10,7 +12,9 @@ interface BarbershopsProps {
   }
 }
 
-const BarbershopsPage = async ({ searchParams }: BarbershopsProps) => {
+export default async function BarbershopsPage({
+  searchParams,
+}: BarbershopsProps) {
   const barbershops = await db.barbershop.findMany({
     where: {
       OR: [
@@ -22,7 +26,7 @@ const BarbershopsPage = async ({ searchParams }: BarbershopsProps) => {
               },
             }
           : {},
-        searchParams.service
+        searchParams?.service
           ? {
               services: {
                 some: {
@@ -46,7 +50,8 @@ const BarbershopsPage = async ({ searchParams }: BarbershopsProps) => {
       </div>
       <div className="px-5">
         <h2 className="mt-6 mb-3 text-xs font-bold text-gray-400 uppercase">
-          Resultados para &quot;{searchParams.search}&quot;
+          Resultados para &quot;{searchParams?.title || searchParams?.service}
+          &quot;
         </h2>
         <div className="grid grid-cols-2 gap-4">
           {barbershops.map((barbershop) => (
@@ -57,5 +62,3 @@ const BarbershopsPage = async ({ searchParams }: BarbershopsProps) => {
     </div>
   )
 }
-
-export default BarbershopsPage
